@@ -24,6 +24,16 @@ from kivymd.uix.card import MDCard
 from kivymd.uix.snackbar import Snackbar
 from kivymd.toast import toast
 
+from kivy.uix.image import Image
+from kivy.clock import Clock
+from kivy.graphics.texture import Texture
+
+import PIL
+
+
+import cv2
+
+
 Window.softinput_mode = "below_target"  # resize to accomodate keyboard
 Window.keyboard_anim_args = {'d': 0.5, 't': 'in_out_quart'}
 
@@ -45,6 +55,18 @@ class ExploreScreen(Screen):
 class HomeScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+
+    def build(self):
+        self.capture = cv2.VideoCapture(0)
+        #cv2.namedWindow("CV2 Image",cv2.WINDOW_NORMAL)
+        #cv2.resizeWindow("CV2 Image", 380,200)
+        Clock.schedule_interval(self.update, 1.0/33.0)
+
+    def update(self, dt):
+        self.ids.vid.reload()
+        # display image from cam in opencv window
+        ret, frame = self.capture.read()
+        cv2.imwrite("camera.jpg",frame)
 
 class Car(MDApp):
     def __init__(self, **kwargs):
@@ -115,7 +137,6 @@ class Car(MDApp):
         pass
 
     def build(self):
-        print('hello')
         self.bind(on_start=self.post_build_init)
         self.sm.add_widget(Factory.LoginScreen())
         self.sm.add_widget(Factory.HomeScreen())

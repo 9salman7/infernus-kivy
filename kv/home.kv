@@ -2,7 +2,8 @@
 <HomeScreen>:
     name: "home_screen"
     on_enter:
-        drive()
+        img=root.build()
+
     MDToolbar:
         id: toolbar
         title: "Test MDBottomNavigation"
@@ -33,8 +34,11 @@
                 MDSeparator:
                     height: "1dp"
 
-                MDLabel:
-                    text: "Pi Camera Stream"
+                #MDLabel:
+                #    text: "Pi Camera Stream"
+                Image:
+                    id: vid
+                    source: "camera.jpg"
 
         MDBottomNavigationItem:
             name: "team"
