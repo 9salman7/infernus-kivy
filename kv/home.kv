@@ -1,0 +1,46 @@
+#:kivy 1.11.1
+<HomeScreen>:
+    name: "home_screen"
+    MDToolbar:
+        id: toolbar
+        title: "Test MDBottomNavigation"
+        md_bg_color: app.theme_cls.primary_color
+        left_action_items: [["menu", lambda x: None]]
+
+    MDBottomNavigation:
+        id: panel
+
+        MDBottomNavigationItem:
+            name: "home"
+            text: "Home"
+            icon: "home-variant"
+
+            MDCard:
+                orientation: "vertical"
+                padding: "8dp"
+                size_hint: None, None
+                size: "280dp", "180dp"
+                pos_hint: {"center_x": .5, "center_y": .5}
+
+                MDLabel:
+                    text: "Camera Stream"
+                    theme_text_color: "Secondary"
+                    size_hint_y: None
+                    height: self.texture_size[1]
+
+                MDSeparator:
+                    height: "1dp"
+
+                MDLabel:
+                    text: "Pi Camera Stream"
+
+        MDBottomNavigationItem:
+            name: "team"
+            text: "Team"
+            icon: "account"
+
+            MDLabel:
+                font_style: "Body1"
+                theme_text_color: "Primary"
+                text: "Team screen over here"
+                halign: "center"
