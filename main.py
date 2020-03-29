@@ -42,7 +42,7 @@ class Car(MDApp):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.title = "Infernus"
-        self.theme_cls.primary_palette = "DeepPurple"
+        self.theme_cls.primary_palette = "DeepOrange"
         self.theme_cls.theme_style = "Light"
         self.sm = ScreenManager()
         self.has_animated_card = False
