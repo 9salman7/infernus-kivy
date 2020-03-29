@@ -1,3 +1,6 @@
+#kivy-latest
+#kivymd- 0.103.0
+
 import traceback
 
 from kivy.core.window import Window
@@ -19,19 +22,16 @@ from kivymd.app import MDApp
 from kivymd.uix.bottomnavigation import MDBottomNavigationItem
 from kivymd.uix.card import MDCard
 from kivymd.uix.snackbar import Snackbar
+from kivymd.toast import toast
 
 Window.softinput_mode = "below_target"  # resize to accomodate keyboard
 Window.keyboard_anim_args = {'d': 0.5, 't': 'in_out_quart'}
 
 Builder.load_string("""
 #:import utils kivy.utils
-
 #:include kv/login.kv
 #:include kv/home.kv
 #:include kv/explore.kv
-
-#:import Snackbar kivymd.uix.snackbar.Snackbar
-
 """)
 
 
@@ -55,12 +55,14 @@ class Car(MDApp):
         
     def login(self, usr, passwd):
         if(usr.text=="salman97" and passwd.text=="salman"):
-            Snackbar(text="Welcome " + usr.text + "!").show()
+            #Snackbar(text="Welcome " + usr.text + "!").show()
+            toast("Welcome " + usr.text + "!")
             self.manage_screens("home_screen", "add")
             self.change_screen("home_screen")
 
         else:
-            Snackbar(text="Incorrect username and/or password!").show()
+            toast("Incorrect username and/or password!")
+            #Snackbar(text="Incorrect username and/or password!").show()
 
     def animate_background(self, widget):
         if self.has_animated_background == False:
@@ -110,6 +112,7 @@ class Car(MDApp):
         pass
 
     def build(self):
+        print('hello')
         self.bind(on_start=self.post_build_init)
         self.sm.add_widget(Factory.LoginScreen())
         self.sm.add_widget(Factory.HomeScreen())
