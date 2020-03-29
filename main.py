@@ -12,10 +12,13 @@ from kivy.uix.button import Button
 from kivy.uix.behaviors import ButtonBehavior
 from kivymd.uix.behaviors import CircularRippleBehavior
 from kivymd.toast.kivytoast.kivytoast import toast
+from kivy.properties import ObjectProperty
+from kivy.properties import StringProperty
 
 from kivymd.app import MDApp
 from kivymd.uix.bottomnavigation import MDBottomNavigationItem
 from kivymd.uix.card import MDCard
+from kivymd.uix.snackbar import Snackbar
 
 Window.softinput_mode = "below_target"  # resize to accomodate keyboard
 Window.keyboard_anim_args = {'d': 0.5, 't': 'in_out_quart'}
@@ -26,6 +29,8 @@ Builder.load_string("""
 #:include kv/login.kv
 #:include kv/home.kv
 #:include kv/explore.kv
+
+#:import Snackbar kivymd.uix.snackbar.Snackbar
 
 """)
 
@@ -47,18 +52,15 @@ class Car(MDApp):
         self.sm = ScreenManager()
         self.has_animated_card = False
         self.has_animated_background = False
-    
-    def account_action(self, email, passwd, username=None, action=None):
-        print(email, passwd, username, action)
-        if action == "register":
-            MDApp.get_running_app().manage_screens("explore_screen", "add")
-            MDApp.get_running_app().change_screen("explore_screen")
-            # register the user
-        elif action == "login":
-            # login the user
-            pass
-        self.manage_screens("home_screen", "add")
-        self.change_screen("home_screen")
+        
+    def login(self, usr, passwd):
+        if(usr.text=="salman97" and passwd.text=="salman"):
+            Snackbar(text="Welcome " + usr.text + "!").show()
+            self.manage_screens("home_screen", "add")
+            self.change_screen("home_screen")
+
+        else:
+            Snackbar(text="Incorrect username and/or password!").show()
 
     def animate_background(self, widget):
         if self.has_animated_background == False:
@@ -68,7 +70,7 @@ class Car(MDApp):
     def animate_card(self, widget):
         # {"center_x": 0.5, "center_y": 0.6}
         if self.has_animated_card == False:
-            anim = Animation(pos_hint={"center_x": 0.5, "center_y": 0.6}, duration=2)
+            anim = Animation(pos_hint={"center_x": 0.5, "center_y": 0.6}, duration=0.5)
             anim.start(widget)
             self.has_animated_card = True
            

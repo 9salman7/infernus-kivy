@@ -1,12 +1,15 @@
 #:kivy 1.11.1
 <ExploreScreen>:
+    on_enter:
+        Snackbar(text="Impressive!").show()
+    
     BoxLayout:
         orientation: "vertical"
         size_hint_y: 0.1
         pos_hint: {"top":1}
         canvas.before:
             Color:
-                rgba: utils.get_color_from_hex("#6633FF")
+                rgba: utils.get_color_from_hex("#eb4034")
             RoundedRectangle:
                 pos: self.pos
                 size: self.size
@@ -22,7 +25,7 @@
                 BoxLayout:
                     orientation: "horizontal"
                     MDIconButton:
-                        icon: 'close'
+                        icon: 'home'
                         pos_hint: {"center_x": 0.5, "center_y": 0.5}
                         on_release:
                             app.manage_screens(root.name, "remove")
@@ -36,8 +39,11 @@
                         halign: "center"
                         text_color: (1, 1, 1, 1) if app.theme_cls.theme_style == "Dark" else (0, 0, 0, 1)
                 MDIconButton:
-                    icon: "close"
+                    icon: "home"
                     pos_hint: {"center_y": 0.5}
+                    on_release:
+                        app.manage_screens(root.name, "remove")
+                        app.change_screen("login_screen")
 
         MDCard:
             orientation: "vertical"
