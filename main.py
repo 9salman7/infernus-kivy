@@ -141,4 +141,5 @@ class Car(MDApp):
             return True
 
 if __name__ == "__main__":
-    Car().run()
+    car = Car()
+    car.run()
