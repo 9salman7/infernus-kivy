@@ -40,6 +40,38 @@
                     id: vid
                     source: "camera.jpg"
 
+            BoxLayout:
+                orientation: "vertical"
+                MDFillRoundFlatButton:
+                    text: "Start Car"
+                    bold: True
+                    size_hint_x: 0.8
+                    pos_hint: {"center_x": .5}
+                    on_release:
+                        app.login(usr, passwd)
+                MDRoundFlatButton:
+                    text: "Stop Car"
+                    bold: True
+                    size_hint_x: 0.8
+                    pos_hint: {"center_x": .5}
+                    on_release:
+                        app.login(usr, passwd)
+                MDFillRoundFlatButton:
+                    text: "Speech Recognition"
+                    bold: True
+                    size_hint_x: 0.8
+                    pos_hint: {"center_x": .5}
+                    on_release:
+                        root.speechRec()
+                MDRoundFlatButton:
+                    text: "Exit"
+                    bold: True
+                    size_hint_x: 0.8
+                    pos_hint: {"center_x": .5}
+                    on_release:
+                        app.manage_screens("login_screen", "add")
+                        app.change_screen("login_screen")
+
         MDBottomNavigationItem:
             name: "team"
             text: "Team"

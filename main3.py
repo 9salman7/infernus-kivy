@@ -31,8 +31,7 @@ from kivy.clock import Clock
 from kivy.graphics.texture import Texture
 
 import PIL
-
-
+import speech_recognition as sr
 import cv2
 
 
@@ -69,6 +68,17 @@ class HomeScreen(Screen):
         # display image from cam in opencv window
         ret, frame = self.capture.read()
         cv2.imwrite("camera.jpg",frame)
+
+    def speechRec(self):
+        r = sr.Recognizer()
+        with sr.Microphone() as source:
+            toast("Speak!")
+            audio = r.listen(source)
+            try:
+                text = r.recognize_google(audio)
+                toast(text)
+            except:
+                toast("Could not recognize")
 
 class Car(MDApp):
     def __init__(self, **kwargs):
