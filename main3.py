@@ -72,13 +72,23 @@ class HomeScreen(Screen):
     def speechRec(self):
         r = sr.Recognizer()
         with sr.Microphone() as source:
-            toast("Speak!")
-            audio = r.listen(source)
+            audio = r.listen(source, timeout=1)
             try:
                 text = r.recognize_google(audio)
-                toast(text)
+                if(text == "start"):
+                    toast("Starting the car!")
+                elif(text == "stop" or text == "top"):
+                    toast("Stopping the car!")
+                else:
+                    text("Could not recognize what you said!")
             except:
-                toast("Could not recognize")
+                toast("Could not recognize what you said!")
+
+    def carControl(self, control):
+        if(control == "start"):
+            toast("Starting the car!")
+        elif(control == "stop"):
+            toast("Stopping the car!")
 
 class Car(MDApp):
     def __init__(self, **kwargs):

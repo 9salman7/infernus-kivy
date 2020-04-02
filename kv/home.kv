@@ -48,14 +48,14 @@
                     size_hint_x: 0.8
                     pos_hint: {"center_x": .5}
                     on_release:
-                        app.login(usr, passwd)
+                        root.carControl("start")
                 MDRoundFlatButton:
                     text: "Stop Car"
                     bold: True
                     size_hint_x: 0.8
                     pos_hint: {"center_x": .5}
                     on_release:
-                        app.login(usr, passwd)
+                        root.carControl("stop")
                 MDFillRoundFlatButton:
                     text: "Speech Recognition"
                     bold: True
