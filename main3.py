@@ -56,6 +56,7 @@ class ExploreScreen(Screen):
 class HomeScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        self.status = ""
 
     def build(self):
         self.capture = cv2.VideoCapture(0)
@@ -64,7 +65,12 @@ class HomeScreen(Screen):
         Clock.schedule_interval(self.update, 1.0/33.0)
 
     def update(self, dt):
+        f = open("status.txt", "r")
+        self.status = f.read()
         self.ids.vid.reload()
+
+        self.ids.stat.text = self.status
+        
         # display image from cam in opencv window
         ret, frame = self.capture.read()
         cv2.imwrite("camera.jpg",frame)
@@ -100,6 +106,7 @@ class Car(MDApp):
         self.has_animated_card = False
         self.has_animated_background = False
         
+
     def login(self, usr, passwd):
         if(usr.text=="salman97" and passwd.text=="salman"):
             #Snackbar(text="Welcome " + usr.text + "!").show()
