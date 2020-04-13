@@ -34,6 +34,7 @@ import PIL
 import speech_recognition as sr
 import cv2
 
+from playsound import playsound 
 
 Window.softinput_mode = "below_target"  # resize to accomodate keyboard
 Window.keyboard_anim_args = {'d': 0.5, 't': 'in_out_quart'}
@@ -57,6 +58,9 @@ class HomeScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.status = ""
+        self.stopFlag = False
+        self.redFlag = False
+        self.greenFlag = False
 
     def build(self):
         self.capture = cv2.VideoCapture(0)
@@ -67,6 +71,25 @@ class HomeScreen(Screen):
     def update(self, dt):
         f = open("status.txt", "r")
         self.status = f.read()
+
+        if self.status == "Stop sign ahead" and self.stopFlag == False:
+            self.stopFlag = True
+            playsound("stop.wav")
+        elif(self.status != "Stop sign ahead"):
+            self.stopFlag = False
+
+        if self.status == "Red light ahead" and self.redFlag == False:
+            self.redFlag = True
+            playsound("redlight.mp3")
+        elif(self.status != "Red light ahead"):
+            self.redFlag = False
+
+        if self.status == "Green light ahead" and self.greenFlag == False:
+            self.greenFlag = True
+            playsound("greenlight.mp3")
+        elif(self.status != "Green light ahead"):
+            self.greenFlag = False
+
         self.ids.vid.reload()
 
         self.ids.stat.text = self.status
